@@ -2,10 +2,6 @@ name: 'Build Front-End'
 
 on: [push, pull_request]
 
-defaults:
-  run:
-    working-directory: frontend
-
 jobs:
   build:
     runs-on: ubuntu-latest
