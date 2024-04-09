@@ -4,7 +4,7 @@
 
 This is a simple webapp SPA developed in Angular & Angular Material for a shoe store. The API is completely mocked and the data is stored in-memory.
 
-**Note**: This project was developed on another private repository which contained an actual API and then moved to this public repository. Hence the commit history is not available .here.
+**Note**: This project was developed on another private repository which contained an actual API and then moved to this public repository. Hence the commit history is not available here.
 
 **Note**: The UI of this project is on the Spanish language, the code is in English.
 
