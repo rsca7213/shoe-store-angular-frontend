@@ -6,6 +6,8 @@ This is a simple webapp SPA developed in Angular & Angular Material for a shoe s
 
 **Note**: This project was developed on another private repository which contained an actual API and then moved to this public repository. Hence the commit history is not available .here.
 
+**Note**: The UI of this project is on the Spanish language, the code is in English.
+
 ## 📚 Prerequisites - Before installing and running the app
 
 - Install the latest LTS of Node.js from [Node.js](https://nodejs.org/en/)
