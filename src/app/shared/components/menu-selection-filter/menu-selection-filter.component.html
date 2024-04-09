@@ -1,0 +1,13 @@
+<button mat-icon-button color="primary" [matMenuTriggerFor]="menu" class="mx-1">
+  <mat-icon [svgIcon]="icon"> </mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  @for (item of items; track item) {
+  <mat-checkbox (change)="modifySelection(item)" checked class="w-100" preventClose>
+    {{ item }}
+  </mat-checkbox>
+  } @empty {
+  <mat-checkbox disabled class="w-100"> Sin elementos </mat-checkbox>
+  }
+</mat-menu>

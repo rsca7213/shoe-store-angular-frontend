@@ -1,0 +1,35 @@
+@use '../../variables.scss' as var;
+
+main {
+  display: grid;
+  width: 100%;
+
+  div {
+    width: 100%;
+    max-width: 500px;
+    place-self: center;
+  }
+}
+
+.payment-card {
+  background-color: var.$background;
+  border-radius: 25px;
+  padding: var.$spacing-3;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.total {
+  font-size: 1.1rem;
+}
+
+mat-card-actions {
+  padding: 0 var.$spacing-4 var.$spacing-4 var.$spacing-4 !important;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+mat-card {
+  border-radius: 25px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+  background-color: var.$background;
+}

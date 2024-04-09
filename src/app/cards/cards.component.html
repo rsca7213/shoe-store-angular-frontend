@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+
+<main *ngIf="viewState === 'ready'" class="mx-3 my-3">
+  <mat-card class="mx-1 mt-5">
+    <mat-card-header class="flex-aligned justify-center">
+      <mat-card-title class="inline-flex-aligned">
+        <mat-icon svgIcon="credit-card-multiple" class="ml-3 mr-2"> </mat-icon>
+        Gestionar tarjetas
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="flex-aligned justify-center mt-2">
+        <button mat-raised-button (click)="addCard()" color="primary">
+          <mat-icon svgIcon="plus-circle"> </mat-icon>
+          Agregar tarjeta
+        </button>
+      </div>
+      <div id="cards" class="mt-4">
+        @for (card of cards; track card.id) {
+        <app-payment-card
+          [card]="card"
+          (delete)="deleteCard(card)"
+          (update)="updateCard(card)"
+          [enableActions]="true"
+        >
+        </app-payment-card>
+        } @empty {
+        <p class="flex-aligned justify-center mt-4 text-muted">
+          <mat-icon svgIcon="credit-card-off" class="mr-2"> </mat-icon>
+          No tienes tarjetas registradas
+        </p>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</main>
+
+<app-loading-view
+  view="tarjetas"
+  [state]="viewState"
+  *ngIf="viewState !== 'ready'"
+></app-loading-view>
+
+<app-error-dialog></app-error-dialog>
+<app-loading-dialog></app-loading-dialog>

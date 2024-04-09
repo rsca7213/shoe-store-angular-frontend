@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+<main class="mt-3 mx-5">
+  <div class="cart">
+    <div class="flex-aligned justify-between">
+      <h1 class="mb-3 flex-aligned">
+        <mat-icon svgIcon="cart" class="mr-2"> </mat-icon>
+        Carrito
+      </h1>
+      <button mat-button color="primary" routerLink="/store">
+        <mat-icon svgIcon="arrow-left"> </mat-icon>
+        Ir a la tienda
+      </button>
+    </div>
+    <mat-list>
+      @for (item of cart.items; track item.product.id) {
+      <mat-list-item>
+        <img matListItemAvatar [src]="item.product.imageUrl" alt="image" />
+        <p matListItemTitle class="item-name">
+          {{ item.product.name }}
+        </p>
+        <p matListItemLine class="mt-1 text-primary item-price">
+          &nbsp;€ {{ item.product.price * item.quantity | number : '1.2-2' }}
+          @if (item.quantity > 1) {
+          <span class="text-muted"> (€ {{ item.product.price | number : '1.2-2' }}) </span>
+          }
+        </p>
+        <div class="item-actions">
+          <button mat-icon-button (click)="removeFromCart(item.product)" color="warn">
+            <mat-icon svgIcon="minus"> </mat-icon>
+          </button>
+          <span class="mx-2 text-primary"> {{ item.quantity }} </span>
+          <button mat-icon-button (click)="addToCart(item.product)" color="primary">
+            <mat-icon svgIcon="plus"> </mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+      } @empty {
+      <mat-list-item>
+        <p matLine class="flex-aligned justify-center text-muted">
+          <mat-icon svgIcon="cart-off" class="mr-2"> </mat-icon>
+          No hay productos en el carrito
+        </p>
+      </mat-list-item>
+      }
+    </mat-list>
+    <h2 class="flex-aligned mt-2 justify-center">
+      <mat-icon svgIcon="cash-multiple" class="mr-1"> </mat-icon>
+      Total
+      <span class="text-primary ml-2"> € {{ total | number : '1.2-2' }} </span>
+    </h2>
+    <div class="flex-aligned justify-center mt-2">
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="!cart.items.length"
+        (click)="clearCart()"
+        class="mx-2"
+      >
+        <mat-icon svgIcon="cart-remove"> </mat-icon>
+        Vaciar carrito
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!cart.items.length"
+        class="mx-2"
+        routerLink="/payment"
+      >
+        <mat-icon svgIcon="cart-arrow-right"> </mat-icon>
+        Comprar
+      </button>
+    </div>
+  </div>
+</main>

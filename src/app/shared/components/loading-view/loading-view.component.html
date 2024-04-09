@@ -1,0 +1,34 @@
+@if (state !== 'ready' && state) {
+<div class="loading-view">
+  <mat-card>
+    <mat-card-header class="justify-center mb-3">
+      <mat-card-title class="inline-flex-aligned">
+        <mat-icon [svgIcon]="APP_PROPERTIES.icon" class="mr-2"> </mat-icon>
+        {{ APP_PROPERTIES.title }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (state === 'loading') {
+      <div class="spinner-container">
+        <mat-spinner color="accent" mode="indeterminate"> </mat-spinner>
+      </div>
+      <p>Cargando {{ view }}, por favor espere...</p>
+      } @if (state === 'error') {
+      <mat-icon svgIcon="alert" color="warn" class="icon-2x py-3"> </mat-icon>
+      <p>Ha ocurrido un error mientras se cargaba la información, intentelo de nuevo.</p>
+      @if (router.url !== '/') {
+      <button mat-flat-button class="mr-2" (click)="navigateToHome()">
+        <mat-icon svgIcon="store"> </mat-icon>
+        Ir a la tienda
+      </button>
+      }
+      <button mat-raised-button color="primary" (click)="reload()">
+        <mat-icon svgIcon="reload"> </mat-icon>
+        Recargar
+      </button>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+
+}

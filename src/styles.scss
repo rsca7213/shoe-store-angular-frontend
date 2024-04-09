@@ -1,0 +1,27 @@
+@use './fonts.scss' as font;
+@use './utilities.scss' as util;
+@use './variables.scss' as var;
+
+html,
+body {
+  height: 100%;
+  background-color: var(--mat-sidenav-content-background-color);
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.form {
+  display: grid;
+  row-gap: var.$spacing-4;
+}
+
+.mat-error {
+  display: none !important;
+}
+
+.mat-form-field .mat-error:first-child {
+  display: block !important;
+}

@@ -1,0 +1,33 @@
+<nav>
+  <mat-toolbar color="primary">
+    <a mat-button routerLink="/" class="brand">
+      <mat-icon [svgIcon]="APP_PROPERTIES.icon" class="icon-lg pb-2 pr-1"></mat-icon>
+      <span>{{ APP_PROPERTIES.title }}</span>
+    </a>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button routerLink="/cart">
+      <mat-icon
+        svgIcon="cart"
+        [matBadge]="cartService.cartItemCount()"
+        aria-hidden="false"
+        matBadgeColor="accent"
+      >
+      </mat-icon>
+    </button>
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <mat-icon svgIcon="account-circle"> </mat-icon>
+    </button>
+    <mat-menu #menu>
+      @for (item of menuOptions(); track item.route) {
+      <button mat-menu-item [routerLink]="'/' + item.route">
+        <mat-icon [svgIcon]="item.icon"></mat-icon>
+        {{ item.label }}
+      </button>
+      }
+      <button mat-menu-item (click)="logout()">
+        <mat-icon svgIcon="logout"></mat-icon>
+        Cerrar sesión
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</nav>

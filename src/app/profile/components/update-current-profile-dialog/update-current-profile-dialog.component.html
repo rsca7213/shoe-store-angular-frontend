@@ -1,0 +1,111 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="card-account-details" class="mr-2"> </mat-icon>
+  Editar perfil
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="py-2 form">
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Nombre </mat-label>
+      <input matInput type="text" placeholder="Nombre..." formControlName="firstName" />
+      <mat-icon matPrefix svgIcon="account-box"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('firstName')?.hasError('required')">
+        El nombre es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('firstName')?.hasError('minlength')">
+        El nombre debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+        El nombre debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Apellido </mat-label>
+      <input matInput type="text" placeholder="Apellido..." formControlName="lastName" />
+      <mat-icon matPrefix svgIcon="account-box"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('lastName')?.hasError('required')">
+        El apellido es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('lastName')?.hasError('minlength')">
+        El apellido debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('lastName')?.hasError('maxlength')">
+        El apellido debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> País </mat-label>
+      <mat-select formControlName="country" (selectionChange)="selectCountry()">
+        @for (country of countries; track country.code) {
+        <mat-option [value]="country">
+          <img
+            src="https://flagsapi.com/{{ country.code }}/flat/24.png"
+            [alt]="country.code"
+            class="country-img"
+          />
+          <span class="country-name"> {{ country.name }} </span>
+        </mat-option>
+        }
+      </mat-select>
+      <mat-icon matPrefix svgIcon="flag"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('country')?.hasError('required')">
+        El país es requerido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Número de telefono </mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Seleccione un país..."
+        formControlName="phoneNumber"
+        appPhoneNumber
+        [readonly]="!form.get('country')?.value"
+        [country]="form.get('country')?.value"
+      />
+      <mat-icon matPrefix svgIcon="phone"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('phoneNumber')?.hasError('required')">
+        El número de telefono es requerido
+      </mat-error>
+      <mat-error
+        class="mat-error"
+        *ngIf="form.get('phoneNumber')?.hasError('phoneNumberWithAreaCode')"
+      >
+        El número de telefono es inválido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field" id="address-field">
+      <mat-label> Dirección </mat-label>
+      <textarea
+        matInput
+        type="text"
+        placeholder="Dirección..."
+        formControlName="address"
+        rows="3"
+      ></textarea>
+      <mat-icon matPrefix svgIcon="map-marker"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('address')?.hasError('required')">
+        La dirección es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('address')?.hasError('minlength')">
+        La dirección debe tener al menos 10 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('address')?.hasError('maxlength')">
+        La dirección debe tener menos de 500 caracteres
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="editProfile()">
+    <mat-icon svgIcon="pencil"> </mat-icon>
+    Editar
+  </button>
+</mat-dialog-actions>

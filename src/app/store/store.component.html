@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+<main *ngIf="viewState === 'ready'">
+  <section class="filter-bar mb-3 mx-2 mt-2">
+    <mat-form-field appearance="outline" color="primary" class="search mt-1">
+      <mat-label> Buscar... </mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Search..."
+        [(ngModel)]="filters.search"
+        (input)="applyFilters()"
+      />
+      <mat-icon matPrefix svgIcon="magnify"> </mat-icon>
+      @if (filters.search) {
+      <button mat-icon-button (click)="filters.search = ''; applyFilters()" matSuffix>
+        <mat-icon svgIcon="close"> </mat-icon>
+      </button>
+      }
+    </mat-form-field>
+    <app-menu-selection-filter
+      [items]="categories"
+      (selected)="onCategoriesSelected($event)"
+      icon="tag"
+    ></app-menu-selection-filter>
+    <app-menu-selection-filter
+      [items]="brands"
+      (selected)="onBrandsSelected($event)"
+      icon="domain"
+    ></app-menu-selection-filter>
+  </section>
+
+  <section class="products mx-2">
+    @for (product of filteredProducts; track product.id) {
+    <app-product-card
+      [product]="product"
+      [addedToCartIndicator]="addedToCartProductIndicator === product.id"
+      (addToCart)="addToCart(product)"
+      (viewProduct)="viewProduct(product)"
+    ></app-product-card>
+    } @empty {
+    <mat-card class="w-100 mx-4" id="emptyList">
+      <mat-card-content class="text-center">
+        <mat-icon svgIcon="store-search" class="icon-2x py-3" color="warn"> </mat-icon>
+        <p>No hay productos disponibles.</p>
+      </mat-card-content>
+    </mat-card>
+
+    }
+  </section>
+</main>
+
+<app-loading-view
+  view="tienda"
+  [state]="viewState"
+  *ngIf="viewState !== 'ready'"
+></app-loading-view>

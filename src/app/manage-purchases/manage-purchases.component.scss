@@ -1,0 +1,23 @@
+@use '../../variables.scss' as var;
+
+mat-card {
+  border-radius: 25px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+mat-card-content #table-responsive {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.mat-column-payment-info,
+.mat-column-total,
+.mat-column-products {
+  white-space: nowrap;
+}
+
+.mat-column-actions {
+  text-align: center;
+  width: 150px;
+  white-space: nowrap;
+}

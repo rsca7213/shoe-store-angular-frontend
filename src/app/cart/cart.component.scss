@@ -1,0 +1,35 @@
+@use '../../variables.scss' as var;
+
+main {
+  display: grid;
+  place-items: center;
+
+  .cart {
+    width: 100%;
+    max-width: 800px;
+  }
+}
+
+.cart {
+  background-color: var.$background;
+  border-radius: 25px;
+  padding: var.$spacing-3;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.quantity {
+  font-size: 1.05rem;
+}
+
+.item-actions {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 0;
+  top: 12px;
+}
+
+.item-name,
+.item-price {
+  width: 220px;
+}

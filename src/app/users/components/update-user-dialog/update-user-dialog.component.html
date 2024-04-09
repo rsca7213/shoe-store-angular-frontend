@@ -1,0 +1,209 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="account" class="mr-2"> </mat-icon>
+  Editar usuario
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="py-2 form">
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Correo electrónico </mat-label>
+      <input matInput type="text" placeholder="Correo electrónico..." formControlName="email" />
+      <mat-icon matPrefix svgIcon="email"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('required')">
+        El correo electrónico es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('email')">
+        El correo electrónico no es válido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('maxLength')">
+        El correo electrónico debe tener como máximo 320 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Rol </mat-label>
+      <mat-select formControlName="role">
+        @for (role of userRoles; track role.value) {
+        <mat-option [value]="role.value">{{ role.label }}</mat-option>
+        }
+      </mat-select>
+      <mat-icon matPrefix svgIcon="shield-account"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('role')?.hasError('required')">
+        El rol es requerido
+      </mat-error>
+    </mat-form-field>
+    <mat-slide-toggle
+      class="mb-3"
+      color="primary"
+      formControlName="updatePassword"
+      id="password-toggle"
+      (change)="togglePasswordUpdate()"
+    >
+      ¿Desea actualizar la contraseña del usuario?
+    </mat-slide-toggle>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Contraseña </mat-label>
+      <input
+        matInput
+        [type]="passwordInputType"
+        placeholder="Contraseña..."
+        formControlName="password"
+      />
+      <mat-icon matPrefix svgIcon="lock"> </mat-icon>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="togglePasswordVisibility()"
+        *ngIf="form.get('updatePassword')!.value"
+      >
+        <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'"> </mat-icon>
+      </button>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('required')">
+        La contraseña es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('minlength')">
+        La contraseña debe tener al menos 10 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('maxlength')">
+        La contraseña debe tener como máximo 100 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasNumber')">
+        La contraseña debe tener al menos un número
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasUppercase')">
+        La contraseña debe tener al menos una letra mayúscula
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasLowercase')">
+        La contraseña debe tener al menos una letra minúscula
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasSpecialCharacter')">
+        La contraseña debe tener al menos un carácter especial
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Confirmar contraseña </mat-label>
+      <input
+        matInput
+        [type]="passwordInputType"
+        placeholder="Confirmación..."
+        formControlName="confirmPassword"
+      />
+      <mat-icon matPrefix svgIcon="lock-check"> </mat-icon>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="togglePasswordVisibility()"
+        *ngIf="form.get('updatePassword')!.value"
+      >
+        <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'"> </mat-icon>
+      </button>
+      <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
+        La confirmación es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('passwordMatch')">
+        La confirmación debe coincidir con la contraseña
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Nombre </mat-label>
+      <input matInput type="text" placeholder="Nombre..." formControlName="firstName" />
+      <mat-icon matPrefix svgIcon="account-box"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('firstName')?.hasError('required')">
+        El nombre es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('firstName')?.hasError('minlength')">
+        El nombre debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+        El nombre debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Apellido </mat-label>
+      <input matInput type="text" placeholder="Apellido..." formControlName="lastName" />
+      <mat-icon matPrefix svgIcon="account-box"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('lastName')?.hasError('required')">
+        El apellido es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('lastName')?.hasError('minlength')">
+        El apellido debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('lastName')?.hasError('maxlength')">
+        El apellido debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> País </mat-label>
+      <mat-select formControlName="country" (selectionChange)="selectCountry()">
+        @for (country of countries; track country.code) {
+        <mat-option [value]="country">
+          <img
+            src="https://flagsapi.com/{{ country.code }}/flat/24.png"
+            [alt]="country.code"
+            class="country-img"
+          />
+          <span class="country-name"> {{ country.name }} </span>
+        </mat-option>
+        }
+      </mat-select>
+      <mat-icon matPrefix svgIcon="flag"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('country')?.hasError('required')">
+        El país es requerido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Número de telefono </mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Seleccione un país..."
+        formControlName="phoneNumber"
+        appPhoneNumber
+        [readonly]="!form.get('country')?.value"
+        [country]="form.get('country')?.value"
+      />
+      <mat-icon matPrefix svgIcon="phone"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('phoneNumber')?.hasError('required')">
+        El número de telefono es requerido
+      </mat-error>
+      <mat-error
+        class="mat-error"
+        *ngIf="form.get('phoneNumber')?.hasError('phoneNumberWithAreaCode')"
+      >
+        El número de telefono es inválido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field" id="address-field">
+      <mat-label> Dirección </mat-label>
+      <textarea
+        matInput
+        type="text"
+        placeholder="Dirección..."
+        formControlName="address"
+        rows="3"
+      ></textarea>
+      <mat-icon matPrefix svgIcon="map-marker"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('address')?.hasError('required')">
+        La dirección es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('address')?.hasError('minlength')">
+        La dirección debe tener al menos 10 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('address')?.hasError('maxlength')">
+        La dirección debe tener menos de 500 caracteres
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="editUser()">
+    <mat-icon svgIcon="pencil"> </mat-icon>
+    Editar
+  </button>
+</mat-dialog-actions>

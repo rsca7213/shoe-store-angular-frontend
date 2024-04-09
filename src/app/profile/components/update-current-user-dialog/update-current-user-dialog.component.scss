@@ -1,0 +1,12 @@
+@use '../../../../variables.scss' as var;
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var.$spacing-4;
+}
+
+#password-toggle {
+  display: flex;
+  justify-content: center;
+}

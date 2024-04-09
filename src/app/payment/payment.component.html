@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<main class="mt-4" *ngIf="viewState === 'ready'">
+  <div>
+    <mat-card class="mx-3">
+      <mat-card-header class="justify-center">
+        <mat-card-title class="inline-flex-aligned">
+          <mat-icon svgIcon="account-credit-card" class="mr-2"> </mat-icon>
+          Pagar
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="text-center">
+          <button mat-button color="primary" routerLink="/cart">
+            <mat-icon svgIcon="arrow-left"> </mat-icon>
+            Volver al carrito
+          </button>
+        </div>
+        <div class="inline-flex-aligned justify-center text-muted mt-3">
+          Monto a pagar
+          <span class="text-center text-primary ml-3 total">€ {{ total | number : '1.2-2' }}</span>
+        </div>
+        <form [formGroup]="form" class="mt-5 mb-2 form">
+          <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+            <mat-label> Tarjeta </mat-label>
+            <mat-select formControlName="card">
+              @for (card of cards; track card.id) {
+              <mat-option [value]="card">{{ card.number | maskedCardNumber }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix svgIcon="credit-card"> </mat-icon>
+            <mat-error class="mat-error" *ngIf="form.get('card')?.hasError('required')">
+              La tarjeta es requerida
+            </mat-error>
+          </mat-form-field>
+          <div class="flex-aligned justify-center">
+            @for (card of cards; track card.id) { @if (card.id === form.get('card')?.value?.id) {
+            <app-payment-card [card]="card" [enableActions]="false"> </app-payment-card>
+            } }
+          </div>
+          <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+            <mat-label> CVV </mat-label>
+            <input matInput type="password" placeholder="CVV..." formControlName="cvv" appCardCvv />
+            <mat-icon matPrefix svgIcon="credit-card-chip"> </mat-icon>
+            <mat-error class="mat-error" *ngIf="form.get('cvv')?.hasError('required')">
+              El CVV es requerido
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('cvv')?.hasError('minlength')">
+              El CVV debe tener al menos 3 caracteres
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('cvv')?.hasError('maxlength')">
+              El CVV debe tener como máximo 3 caracteres
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="justify-center">
+        <button
+          mat-raised-button
+          color="primary"
+          class="w-100"
+          (click)="pay()"
+          [disabled]="form.invalid || cart.items.length === 0"
+        >
+          <mat-icon svgIcon="credit-card-check"> </mat-icon>
+          Pagar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</main>
+
+<app-loading-view
+  view="información de pago"
+  [state]="viewState"
+  *ngIf="viewState !== 'ready'"
+></app-loading-view>
+
+<app-error-dialog></app-error-dialog>
+<app-loading-dialog></app-loading-dialog>

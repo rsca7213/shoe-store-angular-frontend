@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<main *ngIf="viewState === 'ready'" class="mx-3 my-3">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="inline-flex-aligned">
+        <mat-icon svgIcon="account" class="ml-3 mr-2"> </mat-icon>
+        Usuario
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="px-3 mt-2">
+        <p class="flex-aligned">
+          <mat-icon svgIcon="email" class="mr-1"> </mat-icon>
+          {{ user.email }}
+        </p>
+        <p class="flex-aligned">
+          <mat-icon svgIcon="shield-account" class="mr-1"> </mat-icon>
+          {{ user.role | userRole }}
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-flat-button color="primary" class="w-100 mx-3" (click)="editUser()">
+        <mat-icon svgIcon="pencil"> </mat-icon>
+        Editar usuario
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="inline-flex-aligned">
+        <mat-icon svgIcon="card-account-details" class="ml-3 mr-2"> </mat-icon>
+        Perfil
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="px-3 mt-2">
+        <p class="flex-aligned">
+          <mat-icon svgIcon="account" class="mr-1"> </mat-icon>
+          {{ profile.firstName }} {{ profile.lastName }}
+        </p>
+        <p class="flex-aligned">
+          <mat-icon svgIcon="phone" class="mr-1"> </mat-icon>
+          {{ profile.phoneNumber }}
+        </p>
+        <p class="flex-aligned">
+          <mat-icon svgIcon="flag" class="mr-1"> </mat-icon>
+          {{ profile.country }}
+        </p>
+        <p class="flex-aligned">
+          <mat-icon svgIcon="map-marker" class="mr-1"></mat-icon>
+          {{ profile.address }}
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-flat-button color="primary" class="w-100 mx-3" (click)="editProfile()">
+        <mat-icon svgIcon="pencil"> </mat-icon>
+        Editar perfil
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</main>
+
+<app-loading-view
+  view="perfil"
+  [state]="viewState"
+  *ngIf="viewState !== 'ready'"
+></app-loading-view>
+
+<app-error-dialog></app-error-dialog>
+<app-loading-dialog></app-loading-dialog>

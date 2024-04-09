@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title class="flex-aligned">
+      <mat-icon svgIcon="shoe-sneaker" class="mr-2"> </mat-icon>
+      {{ product.name }}
+    </mat-card-title>
+    <mat-card-subtitle class="flex-aligned">
+      <mat-icon svgIcon="domain" class="mr-1"></mat-icon>
+      {{ product.brand }}
+      <mat-icon svgIcon="palette" class="ml-3 mr-1"> </mat-icon>
+      {{ product.color }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <img matCardImage [src]="product.imageUrl" alt="product image" />
+  <mat-card-content class="mt-2">
+    <p>
+      <span class="inline-flex-aligned badge-primary">
+        <mat-icon svgIcon="tag" class="mr-2"> </mat-icon>
+        {{ product.category }}
+      </span>
+      <span class="inline-flex-aligned badge-accent ml-2">
+        <mat-icon svgIcon="cash" class="mr-2"> </mat-icon>
+        €
+        {{ product.price | number : '1.2-2' }}
+      </span>
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-flat-button color="accent" class="mr-2" (click)="viewProduct.emit()">
+      <mat-icon svgIcon="eye" class="mr-2"> </mat-icon>
+      Ver
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      class="mr-2"
+      (click)="addToCart.emit()"
+      [disabled]="addedToCartIndicator"
+    >
+      <mat-icon [svgIcon]="addedToCartIndicator ? 'check' : 'cart-plus'" class="mr-2"> </mat-icon>
+      {{ addedToCartIndicator ? 'Añadido al carrito' : 'Añadir al carrito' }}
+    </button>
+  </mat-card-actions>
+</mat-card>

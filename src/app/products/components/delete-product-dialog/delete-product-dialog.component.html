@@ -1,0 +1,28 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="shoe-sneaker" class="mr-2"> </mat-icon>
+  Eliminar producto
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <p class="text-center pt-2">
+    <mat-icon svgIcon="message-alert" class="icon-lg" color="warn"></mat-icon>
+  </p>
+  <p class="text-center">
+    ¿Estás seguro de que deseas eliminar el producto
+    <span class="text-warn">{{ product.name }}</span
+    >?
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="deleteProduct()">
+    <mat-icon svgIcon="delete"> </mat-icon>
+    Eliminar
+  </button>
+</mat-dialog-actions>

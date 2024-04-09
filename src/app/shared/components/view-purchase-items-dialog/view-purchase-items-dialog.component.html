@@ -1,0 +1,40 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="package-variant" class="mr-2"> </mat-icon>
+  Productos de la compra
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <mat-list>
+    @for (item of purchase.items; track item.product.id) {
+    <mat-list-item>
+      <img matListItemAvatar [src]="item.product.imageUrl" alt="img" />
+      <h3 matListItemTitle>
+        <span class="text-primary"> {{ item.product.brand }} </span>
+        {{ item.product.name }}
+      </h3>
+      <p matListItemLine class="flex-aligned">
+        <mat-icon svgIcon="palette" class="icon-sm"> </mat-icon>
+        {{ item.product.color }}
+        <mat-icon svgIcon="tag" class="icon-sm ml-1"> </mat-icon>
+        {{ item.product.category }}
+      </p>
+      <p matListItemMeta class="text-center">
+        <span class="text-primary meta">
+          {{ item.quantity }}
+        </span>
+        <br />
+        <span class="meta"> € {{ item.product.price | number : '1.2-2' }} </span>
+      </p>
+    </mat-list-item>
+    }
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cerrar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,131 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="shoe-sneaker" class="mr-2"> </mat-icon>
+  Crear producto
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="py-2 form">
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Nombre </mat-label>
+      <input matInput type="text" placeholder="Nombre..." formControlName="name" />
+      <mat-icon matPrefix svgIcon="shoe-sneaker"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('required')">
+        El nombre es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('minlength')">
+        El nombre debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('maxlength')">
+        El nombre debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Marca </mat-label>
+      <input matInput type="text" placeholder="Marca..." formControlName="brand" />
+      <mat-icon matPrefix svgIcon="domain"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('brand')?.hasError('required')">
+        La marca es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('brand')?.hasError('minlength')">
+        La marca debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('brand')?.hasError('maxlength')">
+        La marca debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Color </mat-label>
+      <input matInput type="text" placeholder="Color..." formControlName="color" />
+      <mat-icon matPrefix svgIcon="palette"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('color')?.hasError('required')">
+        El color es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('color')?.hasError('minlength')">
+        El color debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('color')?.hasError('maxlength')">
+        El color debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Categoria </mat-label>
+      <input matInput type="text" placeholder="Categoria..." formControlName="category" />
+      <mat-icon matPrefix svgIcon="tag"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('category')?.hasError('required')">
+        La categoria es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('category')?.hasError('minlength')">
+        La categoria debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('category')?.hasError('maxlength')">
+        La categoria debe tener menos de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Precio (€) </mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Precio..."
+        formControlName="price"
+        appCurrencyFormatter
+      />
+      <mat-icon matPrefix svgIcon="cash"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('price')?.hasError('required')">
+        El precio es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('price')?.hasError('min')">
+        El precio debe ser mayor a 0
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('price')?.hasError('max')">
+        El precio debe ser menor a 1000000
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> URL de Imagen </mat-label>
+      <input matInput type="text" placeholder="URL..." formControlName="imageUrl" />
+      <mat-icon matPrefix svgIcon="web"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('imageUrl')?.hasError('required')">
+        La url es requerida
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field
+      appearance="outline"
+      color="primary"
+      class="mat-form-field"
+      id="description-field"
+    >
+      <mat-label> Descripción </mat-label>
+      <textarea
+        matInput
+        type="text"
+        placeholder="Descripción..."
+        formControlName="description"
+        rows="3"
+      ></textarea>
+      <mat-icon matPrefix svgIcon="form-textbox"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('description')?.hasError('required')">
+        La descripción es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('description')?.hasError('minlength')">
+        La descripción debe tener al menos 3 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('description')?.hasError('maxlength')">
+        La descripción debe tener menos de 500 caracteres
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="addProduct()">
+    <mat-icon svgIcon="plus-circle"> </mat-icon>
+    Crear
+  </button>
+</mat-dialog-actions>

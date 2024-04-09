@@ -1,0 +1,11 @@
+@use '../../../../variables.scss' as var;
+
+.meta {
+  font-size: 1rem;
+}
+
+img {
+  @media (width <= var.$screen-md) {
+    display: none;
+  }
+}

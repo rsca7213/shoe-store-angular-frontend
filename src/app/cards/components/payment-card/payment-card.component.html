@@ -1,0 +1,27 @@
+<mat-card [style.backgroundColor]="brandBackground">
+  <mat-card-content>
+    <p class="flex-aligned">
+      <mat-icon svgIcon="credit-card" class="mr-1"> </mat-icon>
+      {{ card.number | maskedCardNumber }}
+    </p>
+    <p class="flex-aligned">
+      <mat-icon svgIcon="account" class="mr-1"> </mat-icon>
+      {{ card.cardholder }}
+    </p>
+    <p class="flex-aligned">
+      <mat-icon svgIcon="calendar" class="mr-1"> </mat-icon>
+      {{ card.expiration }}
+    </p>
+    <div class="flex-aligned">
+      <div class="flex-spacer" *ngIf="!enableActions"></div>
+      <img [src]="brandUrl" [alt]="brand" class="brand" />
+      <div class="flex-spacer" *ngIf="enableActions"></div>
+      <button mat-icon-button (click)="updateCard()" color="primary" *ngIf="enableActions">
+        <mat-icon svgIcon="pencil"> </mat-icon>
+      </button>
+      <button mat-icon-button (click)="deleteCard()" color="warn" *ngIf="enableActions">
+        <mat-icon svgIcon="delete"> </mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

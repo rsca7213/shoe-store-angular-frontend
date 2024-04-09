@@ -1,0 +1,23 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="alert" class="mr-2"> </mat-icon>
+  Error
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <div class="mat-icon-container">
+    <mat-icon svgIcon="alert" class="icon-2x py-2" color="warn"> </mat-icon>
+  </div>
+  <p class="mt-1">{{ data.message || 'An error has ocurred, please try again.' }}</p>
+  @if (data.details) {
+  <p class="details">{{ data.details }}</p>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cerrar
+  </button>
+</mat-dialog-actions>

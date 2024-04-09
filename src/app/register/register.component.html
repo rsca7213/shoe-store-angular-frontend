@@ -1,0 +1,191 @@
+<main class="mt-3">
+  <div>
+    <h1 class="inline-flex-aligned justify-center w-100">
+      <mat-icon [svgIcon]="APP_PROPERTIES.icon" class="mr-3 icon-lg"> </mat-icon>
+      {{ APP_PROPERTIES.title }}
+    </h1>
+    <mat-card class="mx-3">
+      <mat-card-header class="justify-center">
+        <mat-card-title class="inline-flex-aligned">
+          <mat-icon svgIcon="account-plus" class="mr-2"> </mat-icon>
+          Registrarse
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" class="mt-3 mb-2 form">
+          <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+            <mat-label> Correo electrónico </mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Correo electrónico..."
+              formControlName="email"
+            />
+            <mat-icon matPrefix svgIcon="email"> </mat-icon>
+            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('required')">
+              El correo electrónico es requerido
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('email')">
+              El correo electrónico no es válido
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('maxLength')">
+              El correo electrónico debe tener como máximo 320 caracteres
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            color="primary"
+            class="mat-form-field password-field"
+          >
+            <mat-label> Contraseña </mat-label>
+            <input
+              matInput
+              [type]="passwordInputType"
+              placeholder="Contraseña..."
+              formControlName="password"
+            />
+            <mat-icon matPrefix svgIcon="lock"> </mat-icon>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+              <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'">
+              </mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="text-muted">
+            <mat-progress-bar mode="determinate" color="primary" [value]="passwordStrength">
+            </mat-progress-bar>
+            <p class="mt-2 mb-1 ml-2 password-hint" [class.text-primary]="passwordStrength === 100">
+              La contraseña debe incluir:
+            </p>
+            <p
+              [class.text-primary]="
+                form.get('password')!.value && !form.get('password')!.hasError('minlength')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('minlength') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } Al menos 10 caracteres
+            </p>
+            <p
+              [class.text-primary]="
+                form.get('password')!.value && !form.get('password')!.hasError('hasNumber')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('hasNumber') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } Al menos un número
+            </p>
+            <p
+              [class.text-primary]="
+                form.get('password')!.value && !form.get('password')!.hasError('hasUppercase')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('hasUppercase') )
+              {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } Al menos una letra mayúscula
+            </p>
+            <p
+              [class.text-primary]="
+                form.get('password')!.value && !form.get('password')!.hasError('hasLowercase')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('hasLowercase') )
+              {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } Al menos una letra minúscula
+            </p>
+            <p
+              [class.text-primary]="
+                form.get('password')!.value &&
+                !form.get('password')!.hasError('hasSpecialCharacter')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value &&
+              !form.get('password')!.hasError('hasSpecialCharacter') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } Al menos un carácter especial
+            </p>
+          </div>
+          <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+            <mat-label> Confirmar contraseña </mat-label>
+            <input
+              matInput
+              [type]="passwordInputType"
+              placeholder="Confirmación..."
+              formControlName="confirmPassword"
+            />
+            <mat-icon matPrefix svgIcon="lock-check"> </mat-icon>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+              <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'">
+              </mat-icon>
+            </button>
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
+              La confirmación es requerida
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('minlength')">
+              La confirmación debe tener al menos 10 caracteres
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('maxlength')">
+              La confirmación debe tener como máximo 100 caracteres
+            </mat-error>
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('hasNumber')">
+              La confirmación debe tener al menos un número
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('hasUppercase')"
+            >
+              La confirmación debe tener al menos una letra mayúscula
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('hasLowercase')"
+            >
+              La confirmación debe tener al menos una letra minúscula
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('hasSpecialCharacter')"
+            >
+              La confirmación debe tener al menos un carácter especial
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('passwordMatch')"
+            >
+              La confirmación debe coincidir con la contraseña
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="register()">
+          <mat-icon svgIcon="account-plus"> </mat-icon>
+          Registrarse
+        </button>
+        <button mat-button class="ml-2" routerLink="/login">
+          <mat-icon svgIcon="login"> </mat-icon>
+          Ya tienes una cuenta?
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</main>
+
+<app-error-dialog></app-error-dialog>
+<app-loading-dialog></app-loading-dialog>

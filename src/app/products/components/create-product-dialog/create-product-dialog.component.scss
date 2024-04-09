@@ -1,0 +1,11 @@
+@use '../../../../variables.scss' as var;
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var.$spacing-4;
+}
+
+#description-field {
+  grid-column: 1 / span 2;
+}

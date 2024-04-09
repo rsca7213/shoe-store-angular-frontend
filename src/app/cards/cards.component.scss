@@ -1,0 +1,14 @@
+@use '../../variables.scss' as var;
+
+mat-card {
+  border-radius: 25px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+#cards {
+  display: grid;
+  gap: var.$spacing-4;
+  place-items: center;
+
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+}

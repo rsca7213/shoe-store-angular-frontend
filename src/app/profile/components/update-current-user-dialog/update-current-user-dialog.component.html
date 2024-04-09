@@ -1,0 +1,108 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="account" class="mr-2"> </mat-icon>
+  Editar usuario
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="py-2 form">
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Correo electrónico </mat-label>
+      <input matInput type="text" placeholder="Correo electrónico..." formControlName="email" />
+      <mat-icon matPrefix svgIcon="email"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('required')">
+        El correo electrónico es requerido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('email')">
+        El correo electrónico no es válido
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('maxLength')">
+        El correo electrónico debe tener como máximo 320 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-slide-toggle
+      class="mb-3"
+      color="primary"
+      formControlName="updatePassword"
+      id="password-toggle"
+      (change)="togglePasswordUpdate()"
+    >
+      ¿Desea actualizar la contraseña del usuario?
+    </mat-slide-toggle>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Contraseña </mat-label>
+      <input
+        matInput
+        [type]="passwordInputType"
+        placeholder="Contraseña..."
+        formControlName="password"
+      />
+      <mat-icon matPrefix svgIcon="lock"> </mat-icon>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="togglePasswordVisibility()"
+        *ngIf="form.get('updatePassword')!.value"
+      >
+        <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'"> </mat-icon>
+      </button>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('required')">
+        La contraseña es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('minlength')">
+        La contraseña debe tener al menos 10 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('maxlength')">
+        La contraseña debe tener como máximo 100 caracteres
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasNumber')">
+        La contraseña debe tener al menos un número
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasUppercase')">
+        La contraseña debe tener al menos una letra mayúscula
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasLowercase')">
+        La contraseña debe tener al menos una letra minúscula
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasSpecialCharacter')">
+        La contraseña debe tener al menos un carácter especial
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" class="mat-form-field">
+      <mat-label> Confirmar contraseña </mat-label>
+      <input
+        matInput
+        [type]="passwordInputType"
+        placeholder="Confirmación..."
+        formControlName="confirmPassword"
+      />
+      <mat-icon matPrefix svgIcon="lock-check"> </mat-icon>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="togglePasswordVisibility()"
+        *ngIf="form.get('updatePassword')!.value"
+      >
+        <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'"> </mat-icon>
+      </button>
+      <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
+        La confirmación es requerida
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('passwordMatch')">
+        La confirmación debe coincidir con la contraseña
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="editUser()">
+    <mat-icon svgIcon="pencil"> </mat-icon>
+    Editar
+  </button>
+</mat-dialog-actions>

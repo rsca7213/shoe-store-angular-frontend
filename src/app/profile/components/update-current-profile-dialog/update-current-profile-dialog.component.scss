@@ -1,0 +1,31 @@
+@use '../../../../variables.scss' as var;
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var.$spacing-4;
+
+  @media (width < var.$screen-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.country-img {
+  position: absolute;
+}
+
+.country-name {
+  margin-left: 30px;
+}
+
+#password-toggle {
+  display: flex;
+  justify-content: center;
+}
+
+@media (width >= var.$screen-md) {
+  #address-field,
+  #password-toggle {
+    grid-column: 1 / span 2;
+  }
+}

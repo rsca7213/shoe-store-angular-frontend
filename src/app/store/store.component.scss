@@ -1,0 +1,27 @@
+@use '../../variables.scss' as var;
+
+main {
+  display: grid;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+
+  .search {
+    max-width: 100%;
+    flex: 1;
+    margin-bottom: -1rem;
+  }
+}
+
+.products {
+  display: grid;
+  gap: var.$spacing-4;
+  place-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
+}
+
+#emptyList {
+  grid-column: 1 / -1;
+}
